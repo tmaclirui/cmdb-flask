@@ -5,10 +5,10 @@ print "----------猜数字游戏开始啦-----------"
 while True:
     number = raw_input('please input a number:')
     number = int(number)
-    rnum = random.randint(0,100)
+    rnum = random.randint(0,10)
     if number == rnum:
-        print "---恭喜你！猜对了---"
+        print "---恭喜你！猜对了，可以下班了---"
         break
     else:
-        print "---哦哦,你猜错了哦,继续加油哦---"
+        print "---哦哦,你猜错了哦,继续加班哦---"
         
