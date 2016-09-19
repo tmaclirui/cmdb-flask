@@ -1,7 +1,8 @@
 #!/usr/bin/python
 # ^_^ coding: utf-8 ^_^
 #打开文件
-log_file = open('www_access_20140823.log','r')
+log = raw_input('请输入你的nginx或者httpd的日志路径: ')
+log_file = open(log,'r')
 rs = {}
 for l in log_file:
     # 每循环一次就把一行的内容用空格切割，并将对应的值赋值给ip,url,status
