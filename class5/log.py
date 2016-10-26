@@ -2,7 +2,7 @@
 # ^_^ coding: utf-8 ^_^
 #打开文件
 log = '/opt/nginx/logs/access.log'
-dstpath=raw_input('请输入你的分析之后的nginx的日志文件路径: ')
+dstpath='ok'
 log_file = open(log,'r')
 def nginxlog(log_file,dstpath,n=10):
     rs = {}

@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+ <html>
+     <head>
+      <!--  我是一个注释-->
+      <meta charset="utf-8" />
+      <title>用户修改</title>
+  </head>
+  <body>
+     <form action="/users/modify/" method="post">
+          {% if error %}
+              <span style="color:red">{{error}} </span>
+          {% endif %}
+          <input type="hidden" name="id" value="{{id}}"/>
+         <label>用户名:</label><input type="text" name="username" value="{{username}}"/>
+         <label>年龄:</label><input type ="text" name="age" value="{{age}}"/>
+         <input type="submit" value="修改"/>
+     </form>
+  </body>
+  </html>

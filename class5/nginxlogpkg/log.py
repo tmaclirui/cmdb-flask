@@ -1,7 +1,7 @@
 #!/usr/bin/python
 # ^_^ coding: utf-8 ^_^
 #打开文件
-log = '/opt/nginx/logs/access.log'
+log = raw_input('请输入你的nginx或者httpd的日志路径: ')
 dstpath=raw_input('请输入你的分析之后的nginx的日志文件路径: ')
 log_file = open(log,'r')
 def nginxlog(log_file,dstpath,n=10):
@@ -29,4 +29,3 @@ def nginxlog(log_file,dstpath,n=10):
     dst_file.close()
 if __name__=='__main__':
     nginxlog(log_file,dstpath)
-    

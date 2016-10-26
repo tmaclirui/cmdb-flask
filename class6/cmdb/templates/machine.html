@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+ <html>
+     <head>
+        <!--  我是一个注释-->
+      <meta charset="utf-8" />
+      <title> 机房信息</title>
+  </head>
+  <body>
+     <a href="/machine/create/">添加机房</a>
+     <table border="1">
+        <thead>
+            <tr>
+               <th>ID</th>
+               <th>机房名</th>
+               <th>地址</th>
+               <th>ip地址段</th>
+               <th>操作</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for machine in machines  %}
+                 <tr>
+                  <td>{{machine['id']}}</td>
+                  <td>{{machine['name']}}</td>
+                  <td>{{machine['addr']}}</td>
+                  <td>{{machine['ip_ranges']}}</td>
+                  <td>
+                      <a href="/machine/view/?id={{machine['id']}}">编辑</a>
+                      <a href="/machine/delete/?id={{machine['id']}}">删除</a>
+                  </td>
+                 </tr>
+            {% endfor %}
+        </tbody>
+     </table>   
+  </body>
+  </html>
