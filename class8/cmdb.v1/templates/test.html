@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+ <html>
+     <head>
+        <!--  我是一个注释-->
+      <meta charset="utf-8" />
+      <title>登录</title>
+      <link rel="stylesheet" type="text/css" href="/static/index.css"/>
+  </head>
+  <body>
+     <div class='circle'></div>
+     <div class='circle'></div>
+     <div class='circle'></div>
+     <div class='circle'></div>
+     <div class='circle'></div>
+     <div class='circle'></div>
+     <div class='gun'></div>
+
+
+
+     <span>span1</span>
+     <span>span2</span>
+     <p id='myid'  class='ok'>p1</p>
+     <p>p2</p>
+     <form action="/login/" method="post">
+         <label>用户名:</label>
+         <input type="text" name="username" value=""/><br/>
+         <label>密码:</label>
+         <input type="password" name="password" value=""/><br/>
+         <!--下拉框-->
+         <select name="department" >
+         <option value="1">研发部门</option>
+         <option value="2">测试部门</option>
+         <option value="3" selected="selected">运维部门</option>
+         </select>
+         <br/>
+         <label>性别:</label> 
+         <input type="radio" name="sex" value="1" checked="checked"/>男
+         <input type="radio" name="sex" value="2" />女
+          <br/>
+         <label>爱好</label>
+         <input type="checkbox" name="hobby" value="football" />足球
+         <input type="checkbox" name="hobby" value="basketball" />篮球
+         <input type="checkbox" name="hobby" value="music" />音乐
+         <br/>
+         <label>简介</label>
+         <textarea name="detail">xxxx</textarea>
+         <br/>
+         <label>头像</label>
+         <input type="file" name="icon" />
+         <br/>
+         <input type="url"  name="homepage" value=""/>
+         <input type="date" name="birthday" value=""/>
+         <input type="email" name="email" value=""/>
+
+         <input type="button" value="普通按钮" />
+
+         <input type="submit" value="登录"/>
+     </form>
+     <img src="C:\Users\Administrator\Desktop\527861a080b8b.jpg"/>
+     <ul>
+      <li>1</li>
+      <li>2</li>
+     </ul>
+
+     <ol>
+      <li>1</li>
+      <li>2</li>
+     </ol>
+  </body>
+  </html>

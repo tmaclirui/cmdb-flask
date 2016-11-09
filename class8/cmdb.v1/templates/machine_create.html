@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+ <html>
+     <head>
+      <!--  我是一个注释-->
+      <meta charset="utf-8" />
+      <title>信息修改</title>
+  </head>
+  <body>
+     <form action="/machine/save/" method="post">
+          {% if error %}
+              <span style="color:red">{{error}} </span>
+          {% endif %}
+         <label>机房名:</label><input type="text" name="name" value="{{name}}"/>
+         <label>机房地址:</label><input type ="text" name="addr" value="{{age}}"/>
+         <label>IP地址段:</label><input type="text" name="ip_ranges" value="{{ip_ranges}}"/>
+         <input type="submit" value="添加"/>
+     </form>
+  </body>
+  </html>

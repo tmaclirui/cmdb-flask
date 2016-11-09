@@ -1,0 +1,56 @@
+{% extends "layouts.html" %}
+{% block titile %} CMDB | 机房管理 {% endblock %}
+{% block nav_machine_rooms %}class="active" {% endblock %}
+{% block nav_machine_rooms_list %} class="active"{% endblock %}
+{% block breadcrumb %}
+
+            <li>
+                <a href="javascripts:void(0)">机房</a>
+            </li>
+            <li class="active">
+                <strong>机房管理</strong>
+            </li>
+
+{% endblock %}
+
+{% block content %}
+ <form class="form-horizontal" action="/machine/save/" method="post">
+             
+                <div class="form-group">
+                    <label class="col-sm-2 control-label">
+                    机房名</label>
+
+                    <div class="col-sm-10">
+                        <input type="text" placeholder="用户" class="form-control" name="name" value="{{name}}" />
+                    </div>
+               </div>
+                              
+                <div class="form-group">
+                    <label class="col-sm-2 control-label">
+                    机房地址</label>
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control"  placeholder="机房地址" name="addr" value="{{addr}}" /> 
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-2 control-label">
+                    IP地址段</label>
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control"  placeholder="IP地址段" name="ip_ranges" value="{{ip_ranges}}" /> 
+                    </div>
+                </div>
+                
+                 <div class="form-group">
+                    <div class="col-sm-4 col-sm-offset-2">
+                    
+                        {% if error %}
+                      <div class="form-group">
+                      <div class="alert alert-warning" role="alert">{{error}}</div>           
+                      </div>
+                        {% endif %}
+                      <button class="btn btn-primary" type="submit">添加</button>
+                    </div>
+                </div>
+
+     </form>
+{% endblock %}

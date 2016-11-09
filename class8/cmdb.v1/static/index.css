@@ -1,0 +1,36 @@
+ span {
+        border: 5px solid red;
+
+      }
+      /*class 选择器,以.开头，设置了class=ok的都应用*/
+      .ok {
+        border: 5px solid green;
+        padding: 10px;
+        margin: 15px;
+        width: 100px;
+        height: 200px;
+        border-radius: 15px;
+      }
+      /*id 选择器，以#开头，设置id=myid的元素应用，注意id不重复*/
+      #myid {
+        background-color: gray;
+        position: absolute; 
+        top: 200px;
+        right: 100px;
+      }
+      .circle {
+        width: 50px;
+        height: 50px;
+        padding: 0px;
+        margin: 0px;
+        border: 1px solid red;
+        background-color: red;
+        border-radius: 25px;
+
+      }
+      .gun{
+        background-color: black;
+        width: 10px;
+        height: 100px;
+        margin: 0px 0px 0px 20px;
+      }
