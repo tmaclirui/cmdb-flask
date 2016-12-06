@@ -1,0 +1,57 @@
+{% extends "layouts.html" %}
+{% block titile %} CMDB | 机房管理 {% endblock %}
+{% block nav_assets %}class="active" {% endblock %}
+{% block nav_machine_rooms_list %} class="active"{% endblock %}
+{% block breadcrumb %}
+
+            <li>
+                <a href="javascripts:void(0)">机房</a>
+            </li>
+            <li class="active">
+                <strong>机房管理</strong>
+            </li>
+            <li class="active">
+                <strong>机房编辑</strong>
+            </li>
+{% endblock %}
+
+{% block content %}
+      <form class="form-horizontal" action="/machine/modify/" method="post">
+                <input type="hidden" name="id" value="{{id}}"/>
+                <div class="form-group">
+                    <label class="col-sm-2 control-label">
+                  机房名:</label>
+
+                    <div class="col-sm-10">
+                        <input type="text" placeholder="机房名" class="form-control" name="name" value="{{name}}" />
+                    </div>
+               </div>
+                              
+                <div class="form-group">
+                    <label class="col-sm-2 control-label">
+                    地址:</label>
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control"  placeholder="地址" name="addr" value="{{addr}}" /> 
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-2 control-label">
+                    ip地址段:</label>
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control"  placeholder="ip地址段" name="ip_ranges" value="{{ip_ranges}}" /> 
+                    </div>
+                </div>
+
+                  <div class="form-group">
+                        <div class="col-sm-4 col-sm-offset-2">
+                    
+                            {% if error %}
+                        <div class="form-group">
+                        <div class="alert alert-warning" role="alert">{{error}}</div>           
+                        </div>
+                            {% endif %}
+                        <button class="btn btn-primary" type="submit">编辑</button>
+                        </div>
+                </div>     
+     </form>
+{% endblock %}

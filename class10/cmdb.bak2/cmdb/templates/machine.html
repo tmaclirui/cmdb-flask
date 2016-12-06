@@ -1,0 +1,138 @@
+{% extends "layouts.html" %}
+{% block titile %} CMDB | 资产管理 {% endblock %}
+{% block link %}
+    <link href="/static/sfv/css/plugins/dataTables/dataTables.bootstrap.css" rel="stylesheet">
+    <link href="/static/sfv/css/plugins/dataTables/dataTables.responsive.css" rel="stylesheet">
+    <link href="/static/sfv/css/plugins/dataTables/dataTables.tableTools.min.css" rel="stylesheet">
+
+    <link href="/static/sfv/css/animate.css" rel="stylesheet">
+    <link href="/static/sfv/css/style.css" rel="stylesheet">
+
+{% endblock %}
+{% block nav_assets %}class="active" {% endblock %}
+{% block nav_machine_rooms_list %} class="active"{% endblock %}
+{% block breadcrumb %}
+
+            <li>
+                <a href="javascripts:void(0)">资产</a>
+            </li>
+            <li class="active">
+                <strong>机房管理</strong>
+            </li>
+{% endblock %}
+{% block content %}
+   
+<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#create_machine"> 
+  添加机房
+</button><br/><br/>
+
+<div class="modal fade" id="create_machine" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+        <h4 class="modal-title" id="myModalLabel">机房创建</h4>
+      </div>
+      <div class="modal-body">
+          <form class="form-horizontal  create_form"  method="post">
+             
+                <div class="form-group">
+                    <label class="col-sm-2 control-label">
+                    机房名</label>
+
+                    <div class="col-sm-10">
+                        <input type="text" placeholder="用户" class="form-control" name="name" value="{{name}}" />
+                    </div>
+               </div>
+                              
+                <div class="form-group">
+                    <label class="col-sm-2 control-label">
+                    机房地址</label>
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control"  placeholder="机房地址" name="addr" value="{{addr}}" /> 
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-2 control-label">
+                    IP地址段</label>
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control"  placeholder="IP地址段" name="ip_ranges" value="{{ip_ranges}}" /> 
+                    </div>
+                </div>
+                
+        
+     </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+        <button type="button" class="btn btn-primary create_btn">创建</button>
+      </div>
+    </div>
+  </div>
+</div>
+        <table class="table table-striped table-bordered table-hover  machine">
+        <thead>
+            <tr>
+               <th>ID</th>
+               <th>机房名</th>
+               <th>地址</th>
+               <th>ip地址段</th>
+               <th>操作</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for machine in machines  %}
+                 <tr>
+                  <td>{{machine['id']}}</td>
+                  <td>{{machine['name']}}</td>
+                  <td>{{machine['addr']}}</td>
+                  <td>{{machine['ip_ranges']}}</td>
+                  <td> 
+                      <a href="/machine/view/?id={{machine['id']}}" class="btn btn-primary " role="button">编辑</a>
+                      <a href="javascript:void(0)" data-id="{{machine['id']}}" class="btn btn-primary btn_delete" role="button">删除</a>
+
+                  </td>
+                 </tr>
+            {% endfor %}
+        </tbody>
+     </table>   
+  </body>
+  </html>
+{% endblock %}
+{% block script %}
+    <script src="/static/sfv/js/plugins/dataTables/jquery.dataTables.js"></script>
+    <script src="/static/sfv/js/plugins/dataTables/dataTables.bootstrap.js"></script>
+    <script src="/static/sfv/js/plugins/dataTables/dataTables.responsive.js"></script>
+    <script src="/static/sfv/js/plugins/dataTables/dataTables.tableTools.min.js"></script>
+{% endblock %}
+{% block js %}
+   jQuery(document).ready(function(){
+    jQuery('.machine').dataTable({
+                responsive: true,
+                "dom": 'T<"clear">lfrtip',
+                "tableTools": {
+                    "sSwfPath": "/static/sfv/js/plugins/dataTables/swf/copy_csv_xls_pdf.swf"
+                }
+            });
+    jQuery('.create_btn').on('click',function(){
+    jQuery.post('/machine/save/',jQuery('.create_form').serializeArray(),
+                                function(data){
+                               if(data['code']===200){
+                                window.location.reload();
+                                }
+                                else if(data['code']===400){
+                                alert(data['error']);
+                              }
+
+                              },'json');
+
+  });
+   jQuery(document).on('click','.btn_delete',function() {
+      var url = '/machine/delete/?id= ' + jQuery(this).data('id');
+      if(confirm('确定删除吗')){
+        window.location.replace(url);
+      }
+   
+      });
+  });
+{% endblock %}

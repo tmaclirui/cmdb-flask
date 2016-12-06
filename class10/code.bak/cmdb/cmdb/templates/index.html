@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>CMDB | Login</title>
+
+    <link href="/static/sfv/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/static/sfv/font-awesome/css/font-awesome.css" rel="stylesheet">
+
+    <link href="/static/sfv/css/animate.css" rel="stylesheet">
+    <link href="/static/sfv/css/style.css" rel="stylesheet">
+
+</head>
+
+<body class="gray-bg">
+
+    <div class="middle-box text-center loginscreen animated fadeInDown">
+        <div>
+            <div>
+
+            </div>
+            <h3>Welcome to cmdb</h3>
+            <p>
+            </p>
+            <p>Login in.</p>
+            <form class="m-t" role="form" action="/login/" method="post">
+                <div class="form-group">
+                    <input type="text" class="form-control" placeholder="用户" name="username" value="{{username}}" required="">
+                </div>
+                <div class="form-group">
+                    <input type="password" class="form-control" placeholder="密码" name="password" value="{{password}}" required="">
+                </div>
+                {% if error %}
+                <div class="form-group">
+                 <div class="alert alert-warning" role="alert">{{error}}</div>           
+               </div>
+                {% endif %}
+                <button type="submit" class="btn btn-primary block full-width m-b">Login</button>
+
+            </form>
+            <p class="m-t"> <small>cmdb by lirui &copy; 2016-2018</small> </p>
+        </div>
+    </div>
+
+    <!-- Mainly scripts -->
+    <script src="/static/sfv/js/jquery-2.1.1.js"></script>
+    <script src="/static/sfv/js/bootstrap.min.js"></script>
+
+</body>
+
+</html>
+
