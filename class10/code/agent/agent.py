@@ -5,7 +5,7 @@ import psutil
 import datetime
 import requests
 import sys
-import logging
+import logging,os
 
 URL = 'http://%s:%s/monitor/host/create/'
 INTERVAL = 60
@@ -46,4 +46,11 @@ if __name__ == '__main__':
 		print '请传入 ip地址 和 端口号'
 		sys.exit(-1)
 	logging.basicConfig(level=logging.DEBUG,filename='agent.log')
+
+	pid = os.getpid()
+	logger.info('PID:%s',pid)
+
+ 	with open('agent.pid','wb') as fh:
+ 		fh.write(str(pid))
+
 	monitor(sys.argv[1],sys.argv[2])

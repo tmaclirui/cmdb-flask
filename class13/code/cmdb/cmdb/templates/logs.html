@@ -1,0 +1,108 @@
+{% extends "layouts.html" %}
+{% block title %}CMDB | 日志管理{% endblock %}
+{% block link %}
+<link href="/static/sfv/css/plugins/dataTables/dataTables.bootstrap.css" rel="stylesheet">
+<link href="/static/sfv/css/plugins/dataTables/dataTables.responsive.css" rel="stylesheet">
+<link href="/static/sfv/css/plugins/dataTables/dataTables.tableTools.min.css" rel="stylesheet">
+<link href="/static/slider/css/bootstrap-slider.css" rel="stylesheet">
+<link href="/static/sfv/css/plugins/sweetalert/sweetalert.css" rel="stylesheet">
+<link href="/static/bootstrap-datepicker-1.6.4/dist/css/bootstrap-datepicker3.css" rel="stylesheet">
+<link href="/static/bootstrap-fileinput/css/fileinput.min.css" rel="stylesheet">
+
+{% endblock %}
+
+{% block nav_alerts %}class="active" {% endblock %}
+{% block nav_logs %} class="active"{% endblock %}
+{% block breadcrumb %}
+<li>
+    <a href="javascript:void(0)">监控</a>
+</li>
+<li class="active">
+    <strong>日志管理</strong>
+</li>
+{% endblock %}
+{% block content %}
+<form enctype="multipart/form-data" method="POST" action="/log/upload/">
+    <div class="form-group">
+    <input id="input" type="file" multiple class="file" name="log" data-overwrite-initial="false" data-min-file-count="1">
+    </div>
+ </form>
+ <input type="button" class="btn btn-primary" value="top 10" onClick="location.href='/logs/?topn=10'"/>
+ <input type="button" class="btn btn-primary" value="top 20" onClick="location.href='/logs/?topn=20'"/>
+ <input type="button" class="btn btn-primary" value="top 50" onClick="location.href='/logs/?topn=50'"/>
+ <input type="button" class="btn btn-primary" value="top 100" onClick="location.href='/logs/?topn=100'"/>
+<br/><br/>
+
+<table class="logs table table-striped table-bordered table-hover">
+    <thead>
+        <tr>
+            <th>ip</th>
+            <th>url</th>
+            <th>code</th>
+            <th>count</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for log in logs  %}
+                 <tr>
+                  <td>{{log[0]}}</td>
+                  <td>{{log[1]}}</td>
+                  <td>{{log[2]}}</td>
+                  <td>{{log[3]}}</td>
+                 </tr>
+            {% endfor %}
+    </tbody>
+</table>
+
+{% endblock %}
+{% block script %}
+<script src="/static/sfv/js/plugins/dataTables/jquery.dataTables.js"></script>
+<script src="/static/sfv/js/plugins/dataTables/dataTables.bootstrap.js"></script>
+<script src="/static/sfv/js/plugins/dataTables/dataTables.responsive.js"></script>
+<script src="/static/sfv/js/plugins/dataTables/dataTables.tableTools.min.js"></script>
+<script src="/static/slider/js/bootstrap-slider.js"></script>
+<script src="/static/sfv/js/plugins/sweetalert/sweetalert.min.js"></script>
+<script src="/static/bootstrap-fileinput/js/fileinput.min.js"></script>
+
+
+
+{% endblock %}
+
+{% block js %}
+jQuery(document).ready(function() {
+    var table = jQuery('.logs').dataTable({
+        responsive: true,
+        "dom": 'T<"clear">lfrtip',
+        language: {
+                            "sProcessing": "处理中...",
+                            "sLengthMenu": "显示 _MENU_ 项结果",
+                            "sZeroRecords": "没有匹配结果",
+                            "sInfo": "显示第 _START_ 至 _END_ 项结果，共 _TOTAL_ 项",
+                            "sInfoEmpty": "显示第 0 至 0 项结果，共 0 项",
+                            "sInfoFiltered": "(由 _MAX_ 项结果过滤)",
+                            "sInfoPostFix": "",
+                            "sSearch": "搜索:",
+                            "sUrl": "",
+                            "sEmptyTable": "表中数据为空",
+                            "sLoadingRecords": "载入中...",
+                            "sInfoThousands": ",",
+                            "oPaginate": {
+                                "sFirst": "首页",
+                                "sPrevious": "上页",
+                                "sNext": "下页",
+                                "sLast": "末页"
+                            },
+                            "oAria": {
+                                "sSortAscending": ": 以升序排列此列",
+                                "sSortDescending": ": 以降序排列此列"
+                            }
+                        },
+        "tableTools": {
+            "sSwfPath": "/static/sfv/js/plugins/dataTables/swf/copy_csv_xls_pdf.swf"
+        },
+       
+    });
+
+});
+
+{% endblock%}

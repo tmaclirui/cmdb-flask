@@ -1,0 +1,523 @@
+{% extends "layouts.html" %}
+
+{% block titile %} CMDB | 用户管理 {% endblock %}
+{% block link %}
+    <link href="/static/sfv/css/plugins/dataTables/dataTables.bootstrap.css" rel="stylesheet">
+    <link href="/static/sfv/css/plugins/dataTables/dataTables.responsive.css" rel="stylesheet">
+    <link href="/static/sfv/css/plugins/dataTables/dataTables.tableTools.min.css" rel="stylesheet">
+    <link href="/static/sfv/css/plugins/sweetalert/sweetalert.css" rel="stylesheet">
+    <link href="/static/bootstrap-datepicker-1.6.4/dist/css/bootstrap-datepicker3.css" rel="stylesheet">
+    <link href="/static/sfv/css/animate.css" rel="stylesheet">
+    <link href="/static/sfv/css/style.css" rel="stylesheet">
+
+{% endblock %}
+{% block nav_users %} class="active" {% endblock %}
+{% block nav_users_list %} class="active" {% endblock %}
+{% block breadcrumb %}
+        
+            <li>
+                <a href="javascripts:void(0)">用户</a>
+            </li>
+            <li class="active">
+                <strong>用户管理</strong>
+            </li>
+{% endblock %}
+{% block content %}
+      <button type="button" class="btn btn-primary " data-toggle="modal" data-target="#create_user">
+        添加用户
+      </button></br></br>
+        <table class="table table-striped table-bordered table-hover  users">
+        <thead>
+            <tr>
+               <th>用户</th>
+               <th>年龄</th>
+               <th>部门</th>
+               <th>性别</th>
+               <th>爱好</th>
+               <th>邮箱</th>
+               <th>生日</th>
+               <th>操作</th>
+            </tr>
+        </thead>
+        <tbody>
+           
+        </tbody>
+        </table>
+
+<!-- Modal -->
+<div class="modal fade" id="create_user" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+        <h4 class="modal-title" id="myModalLabel">用户创建</h4>
+      </div>
+      <div class="modal-body">
+        <form method="post" class="form-horizontal create_form">
+              <div class="form-group">
+                <label class="col-sm-2 control-label">用户名</label>
+                <div class="col-sm-10">
+                  <input type="text" placeholder="用户" class="form-control" name="username" value="{{username}}" />
+                </div>
+              </div>
+                               
+              <div class="form-group">
+                <label class="col-sm-2 control-label">年龄</label>
+                <div class="col-sm-10">
+                  <input type="text" class="form-control"  placeholder="年龄" name="age" value="{{age}}" /> 
+                </div>
+              </div>
+               
+               <div class="form-group">
+                <label class="col-sm-2 control-label">头像</label>
+                <div class="col-sm-10">
+                  <input type="file" class="form-control"  name="icon" /> 
+                </div>
+              </div>
+
+
+
+              <div class="form-group">
+              <label class="col-sm-2 control-label">密码</label>
+                <div class="col-sm-10">
+                  <input type="password" class="form-control"  placeholder= "密码" name="password" value="{{password}}" />
+                </div>
+              </div>
+                              
+              <div class="form-group">
+                <label class="col-sm-2 control-label">部门</label>
+                      <div class="col-sm-10">
+                        <select class="form-control m-b" name="department">
+                                        <option value="研发部门">研发部门</option>
+                                        <option selected="selected" value="运维部门">运维部门</option>
+                                        <option value="测试部门">测试部门</option>
+                        </select>
+                      </div>
+              </div>
+                                
+              <div class="form-group">
+                <label class="col-sm-2 control-label">性别 </label>
+                    <div class="col-sm-10">
+                        <div>
+                            <label> 
+                              <input type="radio" checked="checked" value="男"  name="sex"/> 
+                              男</label>
+                            <label> <input type="radio" value="女" name="sex"/> 
+                              女</label>
+                        </div>
+                    </div>
+              </div>
+                               
+              <div class="form-group">
+                <label class="col-sm-2 control-label">爱好</label>
+                    <div class="col-sm-10">
+                      <label class="checkbox-inline"> 
+                        <input type="checkbox" name="hobby" value="篮球" /> 
+                      篮球 </label> 
+                      <label class="checkbox-inline">
+                        <input type="checkbox" name="hobby" value="足球" /> 
+                      足球 </label> 
+                      <label class="checkbox-inline">
+                        <input type="checkbox" name="hobby" value="音乐" /> 
+                      音乐 </label>
+                    </div>
+              </div>
+                              
+               <div class="form-group">
+                <label class="col-sm-2 control-label">邮箱</label>
+                            <div class="col-sm-10">
+                              <input type="email" placeholder="邮箱" class="form-control" name="email" value="{{email}}"   />
+                            </div>
+              </div>
+                  
+
+               <div class="form-group">
+                  <label class="col-sm-2 control-label">生日</label>
+                      <div class="col-sm-10">
+                        <input type="text"   placeholder="生日" class="date form-control" name="birthday" value="{{birthday}}"   /> 
+                      </div>
+                </div>
+
+          </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+        <button type="button" class="btn btn-primary create_btn">创建</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="edit_dialog" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+        <h4 class="modal-title" id="myModalLabel">用户编辑</h4>
+      </div>
+      <div class="modal-body">
+        <form method="post" class="form-horizontal form-edit">
+              <input type="hidden" name="id" value=" "/>
+              <div class="form-group">
+                <label class="col-sm-2 control-label">用户名</label>
+                <div class="col-sm-10">
+                  <input type="text" placeholder="用户" class="form-control" name="name" value="" />
+                </div>
+              </div>
+                               
+              <div class="form-group">
+                <label class="col-sm-2 control-label">年龄</label>
+                <div class="col-sm-10">
+                  <input type="text" class="form-control"  placeholder="年龄" name="age" value="" /> 
+                </div>
+              </div>
+               
+               <div class="form-group">
+                <label class="col-sm-2 control-label">头像</label>
+                <div class="col-sm-10">
+                  <input type="file" class="form-control"  name="icon" /> 
+                </div>
+              </div>
+                              
+              <div class="form-group">
+                <label class="col-sm-2 control-label">部门</label>
+                      <div class="col-sm-10">
+                        <select class="form-control m-b" name="department">
+                                        <option value="研发部门" {% if '研发部门'==department %} selected="selected" {% endif %}  >
+                                            研发部门</option>
+                                        <option value="运维部门" {% if '运维部门'==department %} selected="selected"  {% endif %} >
+                                            运维部门</option>
+                                        <option value="测试部门" {% if '测试部门'==department %} selected="selected"  {% endif %} >
+                                            测试部门</option>
+                        </select>
+                    </div>
+              </div>
+                                
+              <div class="form-group">
+                <label class="col-sm-2 control-label">性别 </label>
+                     <div class="col-sm-10">
+                                 <div>
+                                     <label> 
+                                        <input type="radio" value="男" id='男' name="sex" {% if '男' == sex %} checked="checked" 
+                                        {% endif %}> 男</label>
+                                      <label> 
+                                        <input type="radio" value= "女" id='女' name="sex" {% if '女' == sex %} checked="checked" 
+                                        {% endif %}> 女</label>
+                                 </div>
+                        </div>
+              </div>
+                               
+             <div class="form-group">
+                    <label class="col-sm-2 control-label">
+                        爱好</label>
+
+                            <div class="col-sm-10">
+                                <label class="checkbox-inline">
+                                    <input type="checkbox" name="hobby" id="篮球" value= "篮球" 
+                                    {% if '篮球' in hobby %} checked="checked" {% endif %} /> 
+                                 篮球 </label> 
+                                <label class="checkbox-inline">
+                                    <input type="checkbox" name="hobby" id='足球' value="足球"
+                                    {% if '足球' in hobby %} checked="足球" {% endif %}  /> 
+                                足球 </label> 
+                                <label class="checkbox-inline">
+                                    <input type="checkbox" name="hobby" id='音乐' value="音乐"
+                                    {% if '音乐' in hobby %} checked="checked" {% endif %}/> 
+                                音乐 </label>
+                            </div>
+                  </div>
+                              
+               <div class="form-group">
+                <label class="col-sm-2 control-label">邮箱</label>
+                            <div class="col-sm-10">
+                              <input type="email" placeholder="邮箱" class="form-control" name="email" value=""   />
+                            </div>
+              </div>
+                  
+
+               <div class="form-group">
+                  <label class="col-sm-2 control-label">生日</label>
+                      <div class="col-sm-10">
+                        <input type="text"   placeholder="生日" class="date form-control" name="birthday" value=""   /> 
+                      </div>
+                </div>
+
+          </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+        <button type="button" class="btn btn-primary btn-edit-save">保存</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="create_password" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+        <h4 class="modal-title" id="myModalLabel">用户密码更新</h4>
+      </div>
+      <div class="modal-body">
+        <form method="post" class="form-horizontal create_password_form">
+          <input type="hidden" name="id" id="id-password" value=" "/>
+          <div class="form-group">
+              <label class="col-sm-2 control-label">新密码</label>
+                <div class="col-sm-10">
+                  <input type="password" class="form-control"  placeholder="新密码" name="password" value="" />
+                </div>
+          </div>
+          <div class="form-group">
+              <label class="col-sm-2 control-label">管理密码</label>
+                <div class="col-sm-10">
+                  <input type="password" class="form-control"  placeholder="管理员密码" name="admin_password" value="" />
+                </div>
+          </div>
+          </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+        <button type="button" class="btn btn-primary btn-password-save">更改</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% endblock %} 
+{% block script %}
+    <script src="/static/sfv/js/plugins/dataTables/jquery.dataTables.js"></script>
+    <script src="/static/sfv/js/plugins/dataTables/dataTables.bootstrap.js"></script>
+    <script src="/static/sfv/js/plugins/dataTables/dataTables.responsive.js"></script>
+    <script src="/static/sfv/js/plugins/sweetalert/sweetalert.min.js"></script>
+    <script src="/static/sfv/js/plugins/dataTables/dataTables.tableTools.min.js"></script>
+    <script src="/static/bootstrap-datepicker-1.6.4/dist/js/bootstrap-datepicker.js"></script>
+    <script src="/static/bootstrap-datepicker-1.6.4/js/locales/bootstrap-datepicker.zh-CN.js"></script>
+{% endblock %}
+{% block js %}
+   jQuery(document).ready(function(){
+        var table =  jQuery('.users').dataTable({
+                responsive: true,
+                "dom": 'T<"clear">lfrtip',
+                language: {
+                            "sProcessing": "处理中...",
+                            "sLengthMenu": "显示 _MENU_ 项结果",
+                            "sZeroRecords": "没有匹配结果",
+                            "sInfo": "显示第 _START_ 至 _END_ 项结果，共 _TOTAL_ 项",
+                            "sInfoEmpty": "显示第 0 至 0 项结果，共 0 项",
+                            "sInfoFiltered": "(由 _MAX_ 项结果过滤)",
+                            "sInfoPostFix": "",
+                            "sSearch": "搜索:",
+                            "sUrl": "",
+                            "sEmptyTable": "表中数据为空",
+                            "sLoadingRecords": "载入中...",
+                            "sInfoThousands": ",",
+                            "oPaginate": {
+                                "sFirst": "首页",
+                                "sPrevious": "上页",
+                                "sNext": "下页",
+                                "sLast": "末页"
+                            },
+                            "oAria": {
+                                "sSortAscending": ": 以升序排列此列",
+                                "sSortDescending": ": 以降序排列此列"
+                            }
+                        },
+                "tableTools": {
+                    "sSwfPath": "/static/sfv/js/plugins/dataTables/swf/copy_csv_xls_pdf.swf"
+                },
+                  "ajax": "/users/list/",
+                  "columns": [
+                      { "data": "name" },
+                      { "data": "age" },
+                      { "data": "department" },
+                      { "data": "sex" },
+                      { "data": "hobby" },
+                      { "data": "email" },
+                      { "data": "birthday" },
+                      {
+                        "data" : function(row) {
+                    var elements = [];
+                    elements.push('<a class="btn-edit" data-id="' + row['id'] + '" href="javascript:void(0)"><i class="fa fa-edit"></i></a>');
+                    elements.push('<a class="btn-delete" data-id="' + row['id'] + '" href="javascript:void(0)"><i class="fa fa-trash"></i></a>');
+                    elements.push('<a class="btn-password" data-id="' + row['id'] + '" href="javascript:void(0)"><i class="fa fa-lock"></i></a>');
+                    return elements.join(' ');
+                }
+            }
+                  ]
+
+            });
+  jQuery('.create_btn').on('click',function(){
+    jQuery.post('/users/save/',jQuery('.create_form').serializeArray(),
+                                function(data){
+                               if(data['code']===200){
+                                jQuery('#create_user').modal('hide');
+                                table.api().ajax.reload();
+                                 swal({
+                                    title: "添加成功",
+                                    text: "",
+                                    type: "success",
+                                    showCancelButton: false,
+                                    confirmButtonText: "确认",
+                                    closeOnConfirm: true
+                                });
+                                }
+                                else if(data['code']===400){
+                                swal({
+                                title: data['error'],
+                                text: "",
+                                type: "warning",
+                                showCancelButton: false,
+                                confirmButtonColor: "#DD6B55",
+                                confirmButtonText: "确认",
+                                closeOnConfirm: true
+                            });
+                              }
+
+                              },'json');
+
+  });
+  jQuery('.users').on('click','.btn-edit',function() {
+        //打开
+        jQuery.get('/users/view/', 
+                    {'id' : jQuery(this).data('id')}, 
+                    function(response) {
+                        console.log(response)
+                        for(var key in response) {
+                         if(key == 'sex'  ){ 
+                          var sex_value = response[key];
+                         
+                          $("#" + sex_value).attr("checked",true); 
+                          }
+                          else if(key=='hobby'){ 
+                            var value= response[key].split(' ');
+                                for(var i in value){
+                                  console.log(value[i]);
+                                  $("#" + value[i]).attr("checked",true);
+                            }
+                         }
+                         
+                       else{
+                          jQuery('[name=' + key + ']').val(response[key]);
+                          }
+                        jQuery('#edit_dialog').modal('show');
+                    
+
+                    }},
+                    'json');
+    });
+
+     jQuery('.btn-edit-save').on('click', function() {
+        var params = jQuery('.form-edit').serializeArray();
+        jQuery.post('/users/modify/', params, function(response) {
+            
+            if(response['error'] == '') {
+                jQuery('#edit_dialog').modal('hide');
+                table.api().ajax.reload();
+            } else {
+                alert(response['error']);
+            }
+        },
+        'json');
+    });
+
+  jQuery('.users').on('click', '.btn-delete', function() {
+
+        //发起请求
+         var that = this;
+         swal({
+                title: "确认删除?",
+                text: "",
+                type: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#DD6B55",
+                confirmButtonText: "确认删除!",
+                closeOnConfirm: false
+            }, function () {
+                jQuery.get('/users/delete/', 
+                    {'id' : jQuery(that).data('id')}, 
+                    function(data){
+                    if(data['code']===200){
+                    swal({
+                                title: "删除成功",
+                                text: "",
+                                type: "success",
+                               
+                            });
+                    table.api().ajax.reload();
+                                }
+                              },'json');
+            });
+
+       
+                                
+    });
+
+  jQuery('.users').on('click','.btn-password',function()
+  {   jQuery('input[name=id]').val(jQuery(this).data('id'));
+      jQuery('#create_password').modal('show');
+
+    });
+
+  jQuery('.btn-password-save').on('click', function() {
+        var params = jQuery('.create_password_form').serializeArray();
+        jQuery.post('/users/password/modify/', params, function(response) {
+            console.log(response)
+            if(response['code'] == 200) {
+                jQuery('#create_password').modal('hide');
+                table.api().ajax.reload();
+                swal({
+                                    title: "更新成功",
+                                    text: "",
+                                    type: "success",
+                                    showCancelButton: false,
+                                    confirmButtonText: "确认",
+                                    closeOnConfirm: true
+                                });
+            } 
+            else {
+                swal({
+                                title: response['error'],
+                                text: "",
+                                type: "warning",
+                                showCancelButton: false,
+                                confirmButtonColor: "#DD6B55",
+                                confirmButtonText: "确认",
+                                closeOnConfirm: true
+                            });
+            }
+        },
+        'json');
+    });
+    
+     jQuery('.btn-edit-save').on('click', function() {
+        var params = jQuery('.form-edit').serializeArray();
+        jQuery.post('/users/modify/', params, function(response) {
+            
+            if(response['error'] == '') {
+                jQuery('#edit_dialog').modal('hide');
+                table.api().ajax.reload();
+
+            } else {
+                alert(response['error']);
+            }
+        },
+        'json');
+    });
+
+    jQuery('input.date').datepicker({
+                todayBtn: "linked",
+                keyboardNavigation: false,
+                forceParse: false,
+                calendarWeeks: true,
+                autoclose: true,
+                format: 'yyyy-mm-dd',
+                language: 'zh-CN'
+            });
+
+  });
+{% endblock %}
+
+ 

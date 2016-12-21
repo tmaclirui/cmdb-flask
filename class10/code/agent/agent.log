@@ -1646,3 +1646,12 @@ DEBUG:__main__:{'mem': 15.8, 'ip': '59.110.20.187', 'disk': 30.7, 'cpu': 0.5, 'm
 INFO:requests.packages.urllib3.connectionpool:Starting new HTTP connection (1): 127.0.0.1
 DEBUG:requests.packages.urllib3.connectionpool:"POST /monitor/host/create/ HTTP/1.1" 200 27
 DEBUG:__main__:{u'code': 200, u'result': u''}
+INFO:__main__:PID:1913
+DEBUG:__main__:{'mem': 14.7, 'ip': '59.110.20.187', 'disk': 30.8, 'cpu': 28.6, 'm_time': '2016-12-06 17:35:32'}
+INFO:requests.packages.urllib3.connectionpool:Starting new HTTP connection (1): 127.0.0.1
+DEBUG:requests.packages.urllib3.connectionpool:"POST /monitor/host/create/ HTTP/1.1" 200 27
+DEBUG:__main__:{u'code': 200, u'result': u''}
+DEBUG:__main__:{'mem': 14.7, 'ip': '59.110.20.187', 'disk': 30.8, 'cpu': 1.2, 'm_time': '2016-12-06 17:36:32'}
+INFO:requests.packages.urllib3.connectionpool:Starting new HTTP connection (1): 127.0.0.1
+DEBUG:requests.packages.urllib3.connectionpool:"POST /monitor/host/create/ HTTP/1.1" 200 27
+DEBUG:__main__:{u'code': 200, u'result': u''}
